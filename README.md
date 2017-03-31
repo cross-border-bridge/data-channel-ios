@@ -19,8 +19,7 @@ open Example.xcworkspace
 ### Podspec
 ```
 abstract_target 'defaults' do
-    pod 'CBBDataBus', '2.0.0'
-    pod 'CBBDataChannel', '2.0.0'
+    pod 'CBBDataChannel', '2.0.1'
 end
 ```
 
