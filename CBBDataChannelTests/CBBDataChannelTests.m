@@ -93,4 +93,92 @@
     XCTAssertEqual(_counter, 2);
 }
 
+- (void)testSendPushMT
+{
+    __weak CBBDataChannelTests* self_ = self;
+    
+    // DataChannelBにPUSHを受信することを期待するハンドラを設置
+    [_dataChB addHandler:^(id _Nullable packetObject, CBBDataChannelResponseCallback _Nullable callback) {
+        NSArray* packet = packetObject;
+        NSLog(@"packet=%@", packet);
+        XCTAssertEqual(packet.count, 2);
+        XCTAssertEqual(packet[0], @"PACKET");
+        XCTAssertEqual(packet[1], @(1));
+        XCTAssertNil(callback);
+        self_.counter++;
+    }];
+    
+    _counter = 0;
+    
+    // 10スレッドでDataChannelAからPUSHを送信
+    const int threadNumber = 10;
+    NSOperationQueue* threads[threadNumber];
+    
+    for (int i = 0; i < threadNumber; i++) {
+        threads[i] = [[NSOperationQueue alloc] init];
+        [threads[i] addOperationWithBlock:^{
+            [_dataChA sendPush:@[ @"PACKET", @(1) ]];
+        }];
+    }
+    
+    // join
+    for (int i = 0; i < threadNumber; i++) {
+        [threads[i] waitUntilAllOperationsAreFinished];
+    }
+
+    XCTAssertEqual(_counter, threadNumber);
+    
+    // ハンドラを解除
+    [_dataChB removeAllHandlers];
+}
+
+- (void)testSendRequestMT
+{
+    __weak CBBDataChannelTests* self_ = self;
+    
+    // DataChannelBにPUSHを受信することを期待するハンドラを設置
+    [_dataChB addHandler:^(id _Nullable packetObject, CBBDataChannelResponseCallback _Nullable callback) {
+        NSArray* packet = packetObject;
+        NSLog(@"packet=%@", packet);
+        XCTAssertEqual(packet.count, 2);
+        XCTAssertEqual(packet[0], @"PACKET");
+        XCTAssertEqual(packet[1], @(1));
+        XCTAssertNotNil(callback);
+        callback(@[ @"OK" ]);
+        self_.counter++;
+    }];
+    
+    _counter = 0;
+    
+    // 10スレッドでDataChannelAからREQUESTを送信
+    const int threadNumber = 10;
+    NSOperationQueue* threads[threadNumber];
+    
+    for (int i = 0; i < threadNumber; i++) {
+        threads[i] = [[NSOperationQueue alloc] init];
+        [threads[i] addOperationWithBlock:^{
+            [_dataChA sendRequest:@[ @"PACKET", @(1) ]
+                          timeout:100
+                         callback:^(NSError* _Nullable errorType, id _Nullable packetObject) {
+                             NSArray* packet = packetObject;
+                             NSLog(@"errorType=%@, packet=%@", errorType, packet);
+                             XCTAssertNil(errorType);
+                             XCTAssertEqual(packet.count, 1);
+                             XCTAssertEqual(packet[0], @"OK");
+                             self_.counter++;
+                         }];
+        }];
+    }
+    
+    // join
+    for (int i = 0; i < threadNumber; i++) {
+        [threads[i] waitUntilAllOperationsAreFinished];
+    }
+    
+    XCTAssertEqual(_counter, threadNumber * 2);
+    
+    // ハンドラを解除
+    [_dataChB removeAllHandlers];
+}
+
 @end
