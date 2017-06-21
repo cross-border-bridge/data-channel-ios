@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "CBBDataChannel"
-  s.version = "2.0.3"
+  s.version = "2.0.4"
   s.summary = "DataChannel for iOS"
   s.homepage = "https://github.com/cross-border-bridge/data-channel-ios"
   s.author = 'DWANGO Co., Ltd.'
