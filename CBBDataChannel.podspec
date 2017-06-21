@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "CBBDataChannel"
-  s.version = "2.0.3"
+  s.version = "2.0.4"
   s.summary = "DataChannel for iOS"
   s.homepage = "https://github.com/cross-border-bridge/data-channel-ios"
   s.author = 'DWANGO Co., Ltd.'
@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
   s.platform = :ios, "8.0"
   s.source = { :git => "https://github.com/cross-border-bridge/data-channel-ios.git", :tag => "#{s.version}" }
   s.source_files = "CBBDataChannel/**/*.{h,m}"
-  s.dependency "CBBDataBus"
+  s.dependency "CBBDataBus", "~> 2.1.3"
 end

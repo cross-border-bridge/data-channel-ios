@@ -1,5 +1,8 @@
 # Change log
 
+## Version 2.0.4
+依存する CBBDataBus のバージョンを更新: 2.1.2 -> 2.1.3以降 (2.1系)
+
 ## Version 2.0.3
 依存する CBBDataBus のバージョンを更新: 2.1.1 -> 2.1.2
 
