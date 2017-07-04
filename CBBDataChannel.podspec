@@ -9,4 +9,6 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/cross-border-bridge/data-channel-ios.git", :tag => "#{s.version}" }
   s.source_files = "CBBDataChannel/**/*.{h,m}"
   s.dependency "CBBDataBus", "~> 2.1.3"
+  s.preserve_path = "CBBDataChannel.modulemap"
+  s.module_map = "CBBDataChannel.modulemap"
 end
