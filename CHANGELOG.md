@@ -1,5 +1,9 @@
 # Change log
 
+## Version 2.0.5
+- Swiftに対応
+- 依存する CBBDataBus の最低バージョンを更新: 2.1.5以降 (2.1系)
+
 ## Version 2.0.4
 依存する CBBDataBus のバージョンを更新: 2.1.2 -> 2.1.3以降 (2.1系)
 
