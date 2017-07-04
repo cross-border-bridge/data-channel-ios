@@ -2,8 +2,9 @@
 DataChannel の iOS用の実装を提供します。
 
 ## Example 
-本リポジトリの [Example](Example) ディレクトリが, WKWebView(HTML) と ネイティブコード(Objective-c) 間の DataChannel で通信をする簡単なサンプル・プロジェクトになっています。
+本リポジトリの [Example](Example), [Example-swift](Example-swift) ディレクトリが, WKWebView(HTML) と ネイティブコード(Objective-c) 間の DataChannel で通信をする簡単なサンプル・プロジェクトになっています。
 - Objective-c: [ViewController.m](Example/Example/ViewController.m)
+- Swift: [ViewController.swift](Example-swift/Example-swift/ViewController.swift)
 - HTML: [index.html](Example/www/index.html), [script.js](Example/www/script.js), [data-channel.js](Example/www/data-channel.js)
 
 ![screen-shot](Example/screen-shot.png)
@@ -13,6 +14,13 @@ Exampleをビルドして動作させる場合, 事前に `pod install` を実�
 cd Example
 pod install
 open Example.xcworkspace
+```
+
+または
+```
+cd Example-swift
+pod install
+open Example-swift.xcworkspace
 ```
 
 ## Setup 
